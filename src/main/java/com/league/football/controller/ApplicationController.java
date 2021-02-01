@@ -71,9 +71,7 @@ public class ApplicationController {
 
 	private String getCountryIdFromCountryName(String countryName) {
 		if (countriesMap == null || countriesMap.get(countryName) == null) {
-			RestTemplate restTemplate = new RestTemplate();
-			final String countries_uri = "https://apiv2.apifootball.com/?action=get_countries&APIkey=9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978";
-			String countries = restTemplate.getForObject(countries_uri, String.class);
+			String countries = footballServiceWrapper.getCountries();
 			try {
 				JSONParser jsonParser = new JSONParser();
 				JSONArray jsonArray = (JSONArray) jsonParser.parse(countries);
