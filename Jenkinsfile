@@ -19,9 +19,8 @@ pipeline {
                 bat 'mvn -Dmaven.test.failure.ignore=true install'
             }
             post {
-                always {
-                    archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-                    junit 'build/reports/**/*.xml'
+                success {
+                    junit 'target/footballleague-reports/**/*.xml'
                 }
             }
         }
