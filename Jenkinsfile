@@ -20,7 +20,7 @@ pipeline {
             }
             post {
                 success {
-                    junit 'target/footballleague-reports/**/*.xml'
+                    junit 'target/surefire-reports/**/*.xml'
                 }
             }
         }
