@@ -1,5 +1,6 @@
 package com.league.football.controller;
 
+import com.league.football.services.FootballServiceWrapper;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -18,6 +19,9 @@ public class ApplicationController {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Autowired
+	private FootballServiceWrapper footballServiceWrapper;
+
 	private static HashMap<String, String> countriesMap = new HashMap();
 
 	@GetMapping("/")
@@ -30,10 +34,7 @@ public class ApplicationController {
 			result.put("error", "Invalid input provided. country_name, team_name and league_name are required.");
 		}
 
-		final String uri = "https://apiv2.apifootball.com/?action=get_standings&league_id=148&APIkey=9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978";
-		//TODO: Autowire the RestTemplate in all the examples
-		RestTemplate restTemplate = new RestTemplate();
-		String standings = restTemplate.getForObject(uri, String.class);
+		String standings = footballServiceWrapper.getStandings();
 
 		JSONObject result = new JSONObject();
 
