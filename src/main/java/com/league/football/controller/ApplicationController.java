@@ -13,19 +13,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 @RestController
-public class Application {
+public class ApplicationController {
 
 	@Autowired
 	private RestTemplate restTemplate;
 
 	private static HashMap<String, String> countriesMap = new HashMap();
-
-	@GetMapping("/error")
-	public String error() {
-		JSONObject result = new JSONObject();
-		result.put("error", "Invalid input provided. country_name, team_name and league_name are required.");
-		return result.toJSONString();
-	}
 
 	@GetMapping("/")
 	public String greeting(@RequestParam(value = "country_name")String country,

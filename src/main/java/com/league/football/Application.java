@@ -6,13 +6,11 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.Duration;
-
 @SpringBootApplication
-public class FootballApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FootballApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 	@Bean
