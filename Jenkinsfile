@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools {
+        maven 'Jenkin-Maven'
+        jdk 'Jenkin-Java'
+    }
     stages {
         stage ('Initialize') {
             steps {
