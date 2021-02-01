@@ -19,8 +19,7 @@ public class ApplicationController {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Autowired
-	private FootballServiceWrapper footballServiceWrapper;
+	private FootballServiceWrapper footballServiceWrapper = new FootballServiceWrapper();
 
 	private static HashMap<String, String> countriesMap = new HashMap();
 
