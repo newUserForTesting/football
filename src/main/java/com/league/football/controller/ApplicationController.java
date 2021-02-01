@@ -3,9 +3,11 @@ package com.league.football.controller;
 import com.league.football.services.FootballServiceWrapper;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.json.simple.*;
@@ -13,6 +15,11 @@ import org.json.simple.*;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * Football application controller.
+ *
+ * @author Saurabh Kumar
+ */
 @RestController
 public class ApplicationController {
 
@@ -23,15 +30,19 @@ public class ApplicationController {
 
 	private static HashMap<String, String> countriesMap = new HashMap();
 
+	/**
+	 * Gets standing value for a combination of country, league and team.
+	 *
+	 * @param country
+	 * @param league
+	 * @param team
+	 * @return
+	 */
 	@GetMapping("/")
-	public String greeting(@RequestParam(value = "country_name")String country,
-						   @RequestParam(value = "league_name") @Nullable String league,
-						   @RequestParam(value = "team_name") @Nullable String team) {
-
-		if (country == null || league == null || team == null) {
-			JSONObject result = new JSONObject();
-			result.put("error", "Invalid input provided. country_name, team_name and league_name are required.");
-		}
+	@ResponseStatus(value = HttpStatus.OK)
+	public JSONObject getStandings(@RequestParam(value = "country_name")String country,
+							   @RequestParam(value = "league_name") String league,
+							   @RequestParam(value = "team_name") String team) {
 
 		String standings = footballServiceWrapper.getStandings();
 
@@ -65,10 +76,16 @@ public class ApplicationController {
 			result = new JSONObject();
 			result.put("error", "One or more input parameters is invalid. Provide valid values for country_name, team_name and league_name.");
 		}
-		return result.toJSONString();
+		return result;
 	}
 
-	private String getCountryIdFromCountryName(String countryName) {
+	/**
+	 *  Get country Id for a give country name.
+	 *
+	 * @param countryName
+	 * @return
+	 */
+	public String getCountryIdFromCountryName(String countryName) {
 		if (countriesMap == null || countriesMap.get(countryName) == null) {
 			String countries = footballServiceWrapper.getCountries();
 			try {

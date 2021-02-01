@@ -13,7 +13,7 @@ public class ApplicationTest {
 
 	@Test
 	public void getStandings() {
-		String response = applicationController.greeting(Constants.COUNTRY, Constants.LEAGUE, Constants.TEAM);
+		String response = applicationController.getStandings(Constants.COUNTRY, Constants.LEAGUE, Constants.TEAM).toJSONString();
 
 		Assert.assertTrue(response.contains(Constants.COUNTRY));
 		Assert.assertTrue(response.contains(Constants.LEAGUE));
@@ -22,21 +22,21 @@ public class ApplicationTest {
 
 	@Test
 	public void getStandingsInvalidCountry() {
-		String response = applicationController.greeting("InvalidCountry", Constants.LEAGUE, Constants.TEAM);
+		String response = applicationController.getStandings("InvalidCountry", Constants.LEAGUE, Constants.TEAM).toJSONString();
 
 		Assert.assertEquals("Invalid input", Constants.INVALID_INPUT_ERROR, response);
 	}
 
 	@Test
 	public void getStandingsInvalidLeague() {
-		String response = applicationController.greeting(Constants.LEAGUE, "InvalidLeague", Constants.TEAM);
+		String response = applicationController.getStandings(Constants.LEAGUE, "InvalidLeague", Constants.TEAM).toJSONString();
 
 		Assert.assertEquals("Invalid input", Constants.INVALID_INPUT_ERROR, response);
 	}
 
 	@Test
 	public void getStandingsInvalidTeam() {
-		String response = applicationController.greeting(Constants.LEAGUE, Constants.LEAGUE, "InvalidTeam");
+		String response = applicationController.getStandings(Constants.LEAGUE, Constants.LEAGUE, "InvalidTeam").toJSONString();
 
 		Assert.assertEquals("Invalid input", Constants.INVALID_INPUT_ERROR, response);
 	}
